@@ -1,6 +1,7 @@
 create table tabela_original( 
     timestamp varchar(50), 
-    age int, gender varchar(25), 
+    age int, 
+    gender varchar(25), 
     Purchase_Frequency Varchar(100),
     Purchase_Categories Varchar(100), 
     Personalized_Recommendation_Frequency Varchar(100), 
@@ -24,4 +25,5 @@ create table tabela_original(
 ); 
 
 select * FROM tabela_original; 
+
 

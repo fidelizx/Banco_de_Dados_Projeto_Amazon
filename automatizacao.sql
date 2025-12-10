@@ -1,5 +1,6 @@
---CONSULTA PARA IDENTIFICAR OS MAIORES MOTIVOS DE DESISTÊNCIA DE COMPRAR PRO GENERO
 
+--------------------VIEWS---------------------
+--CONSULTA PARA IDENTIFICAR OS MAIORES MOTIVOS DE DESISTÊNCIA DE COMPRAR PRO GENERO
 CREATE OR REPLACE VIEW view_abandono_por_genero AS
 SELECT
     u.gender as genero,
@@ -14,6 +15,7 @@ ORDER BY u.gender, ocorrencia_total DESC;
 SELECT * FROM view_abandono_por_genero;
 
 
+--------------------FUNÇÕES---------------------
 --Function para identificar o que mais agrada e a sugestão de melhoria com base na idade e genero apontado
 CREATE OR REPLACE FUNCTION func_gosto_e_melhoria(input_genero TEXT, input_idade INT)
 RETURNS TABLE(genero TEXT, idade INT, servico_apreciado TEXT, sugestao_melhoria TEXT)
@@ -59,7 +61,7 @@ $$;
 
 SELECT * FROM func_gosto_e_melhoria('female', 24);
 
-
+--------------------PROCEDURE---------------------
 --procedure para criar uma nova categoria na tabela caso ainda não exista
 CREATE OR REPLACE PROCEDURE prc_cadastrar_categoria(input_nome TEXT)
 LANGUAGE plpgsql
@@ -78,7 +80,7 @@ BEGIN
 END;
 $$;
 
-
+--------------------TRIGGER---------------------
 --trigger que gera um novo registro em uma nova tabela, sempre que o nível de satisfação de uma compra for menor ou igual a 2
 
 CREATE TABLE alerta_insatisfacao (
@@ -109,5 +111,6 @@ CREATE OR REPLACE TRIGGER insatisfacao_trigger
 AFTER INSERT ON comportamento_compra
 FOR EACH ROW
 EXECUTE PROCEDURE trg_insatisfacao();
+
 
 
